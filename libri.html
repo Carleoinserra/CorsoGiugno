@@ -17,7 +17,10 @@
 <script>
     window.onload = gestoreLoad;
 
- function gestoreLoad(){   
+ function gestoreLoad(){ 
+    
+    var btn = document.getElementById("btn");
+    btn.onclick = add;
 class book {
 
     constructor(autore, titolo, genere, posizione, url){
@@ -43,6 +46,9 @@ listaBooks.push(new book ("King", "It", "horror", 4, "it.jpeg"));
 listaBooks.push(new book ("Ferrante", "L'amica geniale", "drammatico", 5, "amica.jpeg"));
  // recuperiamo il div (che è un card group) sul'html e stampiamo una nuova card
     // con i dettagli e l'immagine del panino
+mostraLibri();
+    function mostraLibri(){
+        remove();
     var nodo =  document.getElementById("show");
    for (var i = 0; i < listaBooks.length; i++){
     
@@ -68,11 +74,53 @@ listaBooks.push(new book ("Ferrante", "L'amica geniale", "drammatico", 5, "amica
     nodoCardBody.appendChild(nodoTesto);
     nodo.appendChild(nuovoNodo);
     
+    
+    } }
+    function add(){
+        
+        var titolo =  document.getElementById("titolo").value;
+        var autore =  document.getElementById("autore").value;
+        var genere =  document.getElementById("genere").value;
+        var url =  document.getElementById("url").value;
+        var pos = document.getElementById("pos").value;
+        var l1 = new book(autore,titolo,  genere,pos , url);
+        listaBooks[pos-1] = l1;
+
+        mostraLibri();
+       
+    }
+
+    function remove(){
+    
+    var nodo = document.getElementById("show");
+    
+    while (nodo.firstChild) {
+
+        nodo.removeChild(nodo.firstChild);
     }}
+    
+    
+    }
 </script>
 </head>
 <body>
  <h3>Top libri talentform</h3> 
  <div id ="show"class = "card-group" ></div>  
+ <hr>
+ <hr>
+ Inserisci il titolo <input id = "titolo" type = "text"> <br>
+ Inserisci l'autore <input id = "autore" type = "text"> <br>
+ Inserisci il genere <input id = "genere" type = "text"> <br>
+ Inserisci l'url <input id = "url" type = "text"><br>
+ Inserisci la posizione
+ <select id ="pos">
+    <option value ="1">1</option>
+    <option value ="2">2</option>
+    <option value ="3">3</option>
+    <option value ="4">4</option>
+    <option value ="5">5</option>
+ </select>
+ <br>
+ <button id = "btn">Carica</button>
 </body>
 </html>
