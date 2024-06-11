@@ -1,0 +1,29 @@
+ function scegli(){
+        
+    var listaScelte = new Array();
+    for (var i = 0; i < listaMenu.length; i++){
+       var valoreInput = document.getElementById(listaMenu[i].panino).value;
+       
+       listaScelte.push(valoreInput);
+    }
+    var somma = 0;
+    var riepilogo = "Hai ordinato";
+    var nodo = document.getElementById("result");
+    nodo.textContent = riepilogo;
+    for (var i = 0; i < listaMenu.length; i++){
+        if (listaScelte[i] != "0") {
+        var nodoOrdine = document.createElement("p");
+        nodoOrdine.textContent =  " n. " + listaScelte[i] + " "+ listaMenu[i].visualizza();
+        nodo.appendChild(nodoOrdine);
+        somma += listaMenu[i].prezzo * listaScelte[i];
+
+        
+    }}
+
+
+var nodoPrezzo = document.createElement("h3");
+nodoPrezzo.textContent = "Il totale da pagare è " + somma + " euro";
+nodo.appendChild(nodoPrezzo);
+
+
+}
