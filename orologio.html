@@ -84,6 +84,11 @@
     nodoTesto2.className = "card-text";
     nodoTesto2.textContent ="Qnt: " + listaOrologi[i].qnt;
     nodoCardBody.appendChild(nodoTesto2);
+    if (listaOrologi[i].qnt <= 3){
+        var nodoTesto3 = document.createElement("p");
+    nodoTesto3.className = "card-text";
+    nodoTesto3.textContent ="Ne sono rimasti solo " + listaOrologi[i].qnt + " non fartelo scappare";
+    nodoCardBody.appendChild(nodoTesto3);}
     
     
     var nodoNumber = document.createElement("input");
@@ -140,6 +145,9 @@ function remove(){
     nodo.textContent = riepilogo;
     for (var i = 0; i < listaOrologi.length; i++){
         if (listaScelte[i] != "0") {
+        // controllo se ci sono pezzi disponibili
+        if (listaOrologi[i].qnt >= listaScelte[i]) {
+        
         // vado a sttrarre il numero dei pezzi acuistati dell'articolo
         listaOrologi[i].qnt = listaOrologi[i].qnt-listaScelte[i];
         var nodoOrdine = document.createElement("p");
@@ -147,7 +155,11 @@ function remove(){
         nodo.appendChild(nodoOrdine);
         somma += listaOrologi[i].prezzo * listaScelte[i];
         salva();
-        show();
+        show();}
+
+        else {var nodoOrdine = document.createElement("p");
+        nodoOrdine.textContent =  " Prodotto non disponibile";
+        nodo.appendChild(nodoOrdine);}
         
     }}
 
