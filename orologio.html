@@ -6,7 +6,20 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        img {
+            width: 150px !important;
+            height: 150px !important;
+        }
+        
+        
+            </style>
+            
     <script>
+
+    window.onload = gestoreLoad;
+
+    function gestoreLoad(){
    class watch {
 
     constructor(marca, modello, prezzo, url, tipologia, qnt){
@@ -29,12 +42,18 @@
    listaOrologi.push(o2);
    listaOrologi.push(o3);
    listaOrologi.push(o4);
+   salva();
    show();
-
+   
+   
    function show(){
-    var nodo =  document.getElementById("show");
+    remove();
+    var nodo = document.getElementById("show");
+    listaOrologi = JSON.parse(localStorage.getItem('lista'));
    for (var i = 0; i < listaOrologi.length; i++){
+    
     var nuovoNodo = document.createElement("div");
+    
     nuovoNodo.className = "card";
     var nodoImmagine = document.createElement("img");
     nodoImmagine.src = listaOrologi[i].url;
@@ -51,7 +70,7 @@
     nodoCardBody.appendChild(nodoTitolo);
     var nodoTesto = document.createElement("p");
     nodoTesto.className = "card-text";
-    nodoTesto.textContent = listaMenu[i].marca;
+    nodoTesto.textContent = listaOrologi[i].marca;
     nodoCardBody.appendChild(nodoTesto);
     
     
@@ -62,14 +81,28 @@
    
     nodoCardBody.appendChild(nodoNumber);
     nodo.appendChild(nuovoNodo);
+    
+    
    }
    }
+   function salva(){
+    localStorage.setItem('lista', JSON.stringify(listaOrologi));
+}
+
+function remove(){
+    var nodo = document.getElementById("show");
+    
+    while (nodo.firstChild) {
+
+        nodo.removeChild(nodo.firstChild);
+    }}
+
+}
        </script>
 </head>
 <body>
-  <div id = "show">
-
-  </div> 
+    <div id = "show" class = "card-group"></div>
+    <button id = "btn1"></button>
   <br>
   <br>
   Inserisci la marca: <input type = "text" id = "marca"><br><br>
