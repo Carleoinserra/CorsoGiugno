@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+window.onload = gestoreLoad;
+
+function gestoreLoad(){
+class song {
+
+    constructor (tit, aut){
+        this.titolo = tit;
+        this.autore = aut;
+    }
+    visualizza(){
+        return "titolo: " + this.titolo + " autore: " + this.autore;
+    }
+}
+
+var listaSongs = new Array();
+listaSongs.push(new song ("Rose Rosse", "Ranieri"));
+listaSongs.push(new song ("Vivere", "Vasco"));
+listaSongs.push(new song ("Sunday morning", "Velevet Underground"));
+
+var btn = document.getElementById("btn");
+btn.onclick = add;
+//salva();
+stampa();
+
+
+function add (){
+    var titolo = document.getElementById("titolo").value;
+    var autore = document.getElementById("autore").value;
+    
+    listaSongs.push(new song (titolo, autore));
+     salva();
+    stampa();
+
+
+    
+    
+}
+
+function salva(){
+    localStorage.setItem('listaS2', JSON.stringify(listaSongs));
+}
+
+function stampa(){
+    remove();
+
+    
+     listaSongs = JSON.parse(localStorage.getItem('listaS2'));
+
+    var lista = document.getElementById("result");
+
+    for (var i = 0; i < listaSongs.length; i++){
+     var elemento = document.createElement("li");
+     elemento.textContent = "Autore: " + listaSongs[i].autore + " Titolo " + listaSongs[i].titolo;
+     lista.appendChild(elemento);
+    }
+}
+function remove(){
+    var nodo = document.getElementById("result");
+    
+    while (nodo.firstChild) {
+
+        nodo.removeChild(nodo.firstChild);
+    }}
+
+}
+
+
+    </script>
+</head>
+<body>
+  <input type = "text" id = "titolo"><br>
+  <input type = "text" id = "autore"><br>
+  <button id = "btn">Inserisci</button><hr>
+   <ul id = "result"></ul>
+
+</body>
+</html>
