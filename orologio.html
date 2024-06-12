@@ -20,6 +20,8 @@
     window.onload = gestoreLoad;
 
     function gestoreLoad(){
+        var btn = document.getElementById("add");
+        btn.onclick = add;
    class watch {
 
     constructor(marca, modello, prezzo, url, tipologia, qnt){
@@ -42,14 +44,14 @@
    listaOrologi.push(o2);
    listaOrologi.push(o3);
    listaOrologi.push(o4);
-   salva();
+   //salva();
    show();
    
    
    function show(){
     remove();
     var nodo = document.getElementById("show");
-    listaOrologi = JSON.parse(localStorage.getItem('lista'));
+    listaOrologi = JSON.parse(localStorage.getItem('lista1'));
    for (var i = 0; i < listaOrologi.length; i++){
     
     var nuovoNodo = document.createElement("div");
@@ -86,7 +88,7 @@
    }
    }
    function salva(){
-    localStorage.setItem('lista', JSON.stringify(listaOrologi));
+    localStorage.setItem('lista1', JSON.stringify(listaOrologi));
 }
 
 function remove(){
@@ -96,6 +98,23 @@ function remove(){
 
         nodo.removeChild(nodo.firstChild);
     }}
+
+    function add(){
+
+        var modello = document.getElementById("modello").value;
+        var marca = document.getElementById("marca").value;
+        var prezzo = document.getElementById("prezzo").value;
+        var modello = document.getElementById("modello").value;
+        var url = document.getElementById("url").value;
+        var tipologia = document.getElementById("tipologia").value;
+        var qnt = document.getElementById("qnt").value;
+
+        var o1 = new watch(modello, marca, prezzo, url, tipologia, qnt);
+        listaOrologi.push(o1);
+        console.log(listaOrologi);
+        salva();
+        show();
+    }
 
 }
        </script>
