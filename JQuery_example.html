@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+window.onload = gestoreLoad;
+
+function gestoreLoad(){
+
+$('#myElement').html('<p>Nuovo contenuto HTML</p>');
+
+$('#myButton').click(function() {
+    alert('Hai cliccato il pulsante!');
+});
+
+$('.show').hide();
+$('.show').show();
+
+}
+
+
+    </script>
+</head>
+<body>
+   <div id = "myElement"></div> <br>
+   <button id = "myButton">Cliccami</button>
+
+   <div class = "show"> 
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet provident repellendus voluptate fugit vero neque, quam repudiandae, deserunt, minima ad voluptas aliquam ipsam molestiae corporis et tenetur veritatis ex unde?
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga aut porro natus deserunt enim, soluta sequi vero. Atque iusto quam cumque temporibus esse facere est. Exercitationem porro laborum vel id.
+
+   </div>
+</body>
+</html>
