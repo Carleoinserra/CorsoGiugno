@@ -22,6 +22,8 @@
     function gestoreLoad(){
         var btn = document.getElementById("add");
         btn.onclick = add;
+        var btn1 = document.getElementById("btn1");
+        btn1.onclick= ordina;
    class watch {
 
     constructor(marca, modello, prezzo, url, tipologia, qnt){
@@ -36,10 +38,10 @@
    }
 
    var listaOrologi = new Array();
-   var o1 = new watch("Daytona", "Rolex", 10000, "rolex.jpeg", "deluxe", 3);
-   var o2 = new watch("Simpson", "Swatch", 90, "swatch.webp", "sport", 10);
-   var o3 = new watch("BlueMarine", "Sector", 300, "sector.jpeg", "sport", 30);
-   var o4 = new watch("Grey", "Philippe watch", 3000, "philippe.jpeg", "deluxe", 3);
+   var o1 = new watch("Rolex","Daytona",  10000, "rolex.jpeg", "deluxe", 3);
+   var o2 = new watch("Swatch","Simpson",  90, "swatch.webp", "sport", 10);
+   var o3 = new watch("Sector","BlueMarine",  300, "sector.jpeg", "sport", 30);
+   var o4 = new watch("Philippe watch","Grey",  3000, "philippe.jpeg", "deluxe", 3);
    listaOrologi.push(o1);
    listaOrologi.push(o2);
    listaOrologi.push(o3);
@@ -51,7 +53,7 @@
    function show(){
     remove();
     var nodo = document.getElementById("show");
-    listaOrologi = JSON.parse(localStorage.getItem('lista1'));
+    listaOrologi = JSON.parse(localStorage.getItem('lista2'));
    for (var i = 0; i < listaOrologi.length; i++){
     
     var nuovoNodo = document.createElement("div");
@@ -72,8 +74,16 @@
     nodoCardBody.appendChild(nodoTitolo);
     var nodoTesto = document.createElement("p");
     nodoTesto.className = "card-text";
-    nodoTesto.textContent = listaOrologi[i].marca;
+    nodoTesto.textContent = "Marca: " + listaOrologi[i].marca;
     nodoCardBody.appendChild(nodoTesto);
+    var nodoTesto1 = document.createElement("p");
+    nodoTesto1.className = "card-text";
+    nodoTesto1.textContent ="Prezzo: " + listaOrologi[i].prezzo;
+    nodoCardBody.appendChild(nodoTesto1);
+    var nodoTesto2 = document.createElement("p");
+    nodoTesto2.className = "card-text";
+    nodoTesto2.textContent ="Qnt: " + listaOrologi[i].qnt;
+    nodoCardBody.appendChild(nodoTesto2);
     
     
     var nodoNumber = document.createElement("input");
@@ -88,7 +98,7 @@
    }
    }
    function salva(){
-    localStorage.setItem('lista1', JSON.stringify(listaOrologi));
+    localStorage.setItem('lista2', JSON.stringify(listaOrologi));
 }
 
 function remove(){
@@ -109,20 +119,62 @@ function remove(){
         var tipologia = document.getElementById("tipologia").value;
         var qnt = document.getElementById("qnt").value;
 
-        var o1 = new watch(modello, marca, prezzo, url, tipologia, qnt);
+        var o1 = new watch(marca, modello, prezzo, url, tipologia, qnt);
         listaOrologi.push(o1);
         console.log(listaOrologi);
         salva();
         show();
     }
 
+    function ordina(){
+
+        var listaScelte = new Array();
+    for (var i = 0; i < listaOrologi.length; i++){
+       var valoreInput = document.getElementById(listaOrologi[i].modello).value;
+       
+       listaScelte.push(valoreInput);
+    }
+    var somma = 0;
+    var riepilogo = "Hai ordinato";
+    var nodo = document.getElementById("result");
+    nodo.textContent = riepilogo;
+    for (var i = 0; i < listaOrologi.length; i++){
+        if (listaScelte[i] != "0") {
+        // vado a sttrarre il numero dei pezzi acuistati dell'articolo
+        listaOrologi[i].qnt = listaOrologi[i].qnt-listaScelte[i];
+        var nodoOrdine = document.createElement("p");
+        nodoOrdine.textContent =  " n. " + listaScelte[i] + " "+ listaOrologi[i].modello;
+        nodo.appendChild(nodoOrdine);
+        somma += listaOrologi[i].prezzo * listaScelte[i];
+        salva();
+        show();
+        
+    }}
+
+
+
+var nodoPrezzo = document.createElement("h3");
+nodoPrezzo.textContent = "Il totale da pagare è " + somma + " euro";
+nodo.appendChild(nodoPrezzo);
+
+
+
+
+}
+    
+
 }
        </script>
 </head>
 <body>
     <div id = "show" class = "card-group"></div>
-    <button id = "btn1"></button>
+    <button id = "btn1">Ordina</button>
+    <div id = "result"></div>
   <br>
+  <br>
+  <hr>
+  <hr>
+  Aggiungi orologio
   <br>
   Inserisci la marca: <input type = "text" id = "marca"><br><br>
   Inserisci il modello: <input type = "text" id = "modello"><br><br>
