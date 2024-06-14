@@ -1,24 +1,42 @@
-$cont4 = 0;
-for ($i = 0; $i < 100; $i++) {
-$var = (rand(1, 4));
-if ($var == 1){
-    
-    $cont1++;
-}
-else if ($var == 2){
-    
-    $cont2++;
-}
-else if ($var == 3){
-    
-    $cont3++;
-}
-else if ($var == 4){
-    
-    $cont4++;
-}}
+<?php
+session_start(); // Avvia la sessione
 
-echo("E' uscito cuori " . $cont1 . " volte");
-echo("E' uscito picche " . $cont2 . " volte");
-echo("E' uscito quadri " . $cont3 . " volte");
-echo("E' uscito fiori " . $cont4 . " volte");
+if (isset($_SESSION["nome"], $_SESSION["credito"])) {
+    $nome = $_SESSION["nome"];
+    $credito = $_SESSION["credito"];
+   
+} else {
+    echo "Variabili di sessione non trovate.";
+    exit(); // Interrompe l'esecuzione se le variabili di sessione non sono impostate
+}
+
+if (isset($_POST["scelta"])) {
+    $sceltaNum = (int)$_POST["scelta"];
+} else {
+    echo "Scelta non trovata.";
+    exit(); // Interrompe l'esecuzione se la scelta non è stata inviata
+}
+
+$min = 0;
+$max = 1;
+$randomNumber = random_int($min, $max);
+
+if ($randomNumber == 1) {
+    echo "è uscito croce<br>";
+} else {
+    echo "è uscito testa<br>";
+}
+
+if ($randomNumber != $sceltaNum) {
+    echo "$nome, hai perso<br>";
+    $credito -= 2;
+    echo "Il tuo credito ora è: $credito euro<br>";
+} else {
+    echo "$nome, hai vinto<br>";
+    $credito += 2;
+    echo "Il tuo credito ora è: $credito euro<br>";
+}
+
+// Aggiorna il credito nella sessione
+$_SESSION["credito"] = $credito;
+?>

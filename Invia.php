@@ -1,5 +1,5 @@
 <?php  
-$nome = $_POST["nome"];
+$nome = $_GET["nome"];
 echo("Benvenuto " . $nome);
 
 ?>
